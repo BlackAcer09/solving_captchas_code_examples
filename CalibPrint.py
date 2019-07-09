@@ -1,6 +1,7 @@
 """
 Created on Fri Jan  5 10:57:34 2018
 @author: 晚晴风
+创建黑白格子标定板
 """
 import cv2
 import numpy as np
