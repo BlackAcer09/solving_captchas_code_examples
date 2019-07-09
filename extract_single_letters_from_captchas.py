@@ -13,7 +13,7 @@ OUTPUT_FOLDER = "extracted_letter_images"
 # Get a list of all the captcha images we need to process
 captcha_image_files = glob.glob(os.path.join(CAPTCHA_IMAGE_FOLDER, "*"))
 counts = {}
-cc = []
+cc='test'
 # loop over the image paths
 for (i, captcha_image_file) in enumerate(captcha_image_files):
     print("[INFO] processing image {}/{}".format(i + 1, len(captcha_image_files)))
