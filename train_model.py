@@ -45,7 +45,9 @@ data = np.array(data, dtype="float") / 255.0
 labels = np.array(labels)
 
 # Split the training data into separate train and test sets
-(X_train, X_test, Y_train, Y_test) = train_test_split(data, labels, test_size=0.25, random_state=0)
+(X_train, X_test, Y_train, Y_test) = train_test_split(
+    data, labels, test_size=0.25, random_state=0
+)
 
 # Convert the labels (letters) into one-hot encodings that Keras can work with
 lb = LabelBinarizer().fit(Y_train)
@@ -61,7 +63,9 @@ with open(MODEL_LABELS_FILENAME, "wb") as f:
 model = Sequential()
 
 # First convolutional layer with max pooling
-model.add(Conv2D(20, (5, 5), padding="same", input_shape=(20, 20, 1), activation="relu"))
+model.add(
+    Conv2D(20, (5, 5), padding="same", input_shape=(20, 20, 1), activation="relu")
+)
 model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
 
 # Second convolutional layer with max pooling
@@ -79,7 +83,14 @@ model.add(Dense(32, activation="softmax"))
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
 # Train the neural network
-model.fit(X_train, Y_train, validation_data=(X_test, Y_test), batch_size=32, epochs=10, verbose=1)
+model.fit(
+    X_train,
+    Y_train,
+    validation_data=(X_test, Y_test),
+    batch_size=32,
+    epochs=10,
+    verbose=1,
+)
 
 # Save the trained model to disk
 model.save(MODEL_FILENAME)

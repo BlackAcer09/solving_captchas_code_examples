@@ -38,7 +38,9 @@ for image_file in captcha_image_files:
     thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 
     # find the contours (continuous blobs of pixels) the image
-    contours = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours = cv2.findContours(
+        thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+    )
 
     # Hack for compatibility with different OpenCV versions
     contours = contours[1] if imutils.is_cv3() else contours[0]
@@ -83,7 +85,7 @@ for image_file in captcha_image_files:
         x, y, w, h = letter_bounding_box
 
         # Extract the letter from the original image with a 2-pixel margin around the edge
-        letter_image = image[y - 2:y + h + 2, x - 2:x + w + 2]
+        letter_image = image[y - 2 : y + h + 2, x - 2 : x + w + 2]
 
         # Re-size the letter image to 20x20 pixels to match training data
         letter_image = resize_to_fit(letter_image, 20, 20)
@@ -101,7 +103,15 @@ for image_file in captcha_image_files:
 
         # draw the prediction on the output image
         cv2.rectangle(output, (x - 2, y - 2), (x + w + 4, y + h + 4), (0, 255, 0), 1)
-        cv2.putText(output, letter, (x - 5, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 0), 2)
+        cv2.putText(
+            output,
+            letter,
+            (x - 5, y - 5),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.55,
+            (0, 255, 0),
+            2,
+        )
 
     # Print the captcha's text
     captcha_text = "".join(predictions)

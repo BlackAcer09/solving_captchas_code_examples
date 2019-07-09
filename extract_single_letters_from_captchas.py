@@ -75,13 +75,13 @@ for (i, captcha_image_file) in enumerate(captcha_image_files):
 
     # Save out each letter as a single image
     for letter_bounding_box, letter_text in zip(
-            letter_image_regions, captcha_correct_text
+        letter_image_regions, captcha_correct_text
     ):
         # Grab the coordinates of the letter in the image
         x, y, w, h = letter_bounding_box
 
         # Extract the letter from the original image with a 2-pixel margin around the edge
-        letter_image = gray[y - 2: y + h + 2, x - 2: x + w + 2]
+        letter_image = gray[y - 2 : y + h + 2, x - 2 : x + w + 2]
 
         # Get the folder to save the image in
         save_path = os.path.join(OUTPUT_FOLDER, letter_text)

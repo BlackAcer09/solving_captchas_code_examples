@@ -32,8 +32,7 @@ def resize_to_fit(image, width, height):
 
     # pad the image then apply one more resizing to handle any
     # rounding issues
-    image = cv2.copyMakeBorder(image, padH, padH, padW, padW,
-        cv2.BORDER_REPLICATE)
+    image = cv2.copyMakeBorder(image, padH, padH, padW, padW, cv2.BORDER_REPLICATE)
     image = cv2.resize(image, (width, height))
 
     # return the pre-processed image
