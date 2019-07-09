@@ -13,7 +13,7 @@ OUTPUT_FOLDER = "extracted_letter_images"
 # Get a list of all the captcha images we need to process
 captcha_image_files = glob.glob(os.path.join(CAPTCHA_IMAGE_FOLDER, "*"))
 counts = {}
-
+cc = []
 # loop over the image paths
 for (i, captcha_image_file) in enumerate(captcha_image_files):
     print("[INFO] processing image {}/{}".format(i + 1, len(captcha_image_files)))
@@ -26,7 +26,7 @@ for (i, captcha_image_file) in enumerate(captcha_image_files):
     # Load the image and convert it to grayscale
     image = cv2.imread(captcha_image_file)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    cv2.imshow('',image)
+    cv2.imshow("", image)
     cv2.waitKey(0)
 
     # Add some extra padding around the image
@@ -36,7 +36,9 @@ for (i, captcha_image_file) in enumerate(captcha_image_files):
     thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 
     # find the contours (continuous blobs of pixels) the image
-    contours = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours = cv2.findContours(
+        thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+    )
 
     # Hack for compatibility with different OpenCV versions
     contours = contours[1] if imutils.is_cv3() else contours[0]
@@ -72,12 +74,14 @@ for (i, captcha_image_file) in enumerate(captcha_image_files):
     letter_image_regions = sorted(letter_image_regions, key=lambda x: x[0])
 
     # Save out each letter as a single image
-    for letter_bounding_box, letter_text in zip(letter_image_regions, captcha_correct_text):
+    for letter_bounding_box, letter_text in zip(
+            letter_image_regions, captcha_correct_text
+    ):
         # Grab the coordinates of the letter in the image
         x, y, w, h = letter_bounding_box
 
         # Extract the letter from the original image with a 2-pixel margin around the edge
-        letter_image = gray[y - 2:y + h + 2, x - 2:x + w + 2]
+        letter_image = gray[y - 2: y + h + 2, x - 2: x + w + 2]
 
         # Get the folder to save the image in
         save_path = os.path.join(OUTPUT_FOLDER, letter_text)
