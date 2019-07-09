@@ -26,8 +26,8 @@ for (i, captcha_image_file) in enumerate(captcha_image_files):
     # Load the image and convert it to grayscale
     image = cv2.imread(captcha_image_file)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # cv2.imshow('',image)
-    # cv2.waitKey(0)
+    cv2.imshow('',image)
+    cv2.waitKey(0)
 
     # Add some extra padding around the image
     gray = cv2.copyMakeBorder(gray, 8, 8, 8, 8, cv2.BORDER_REPLICATE)
