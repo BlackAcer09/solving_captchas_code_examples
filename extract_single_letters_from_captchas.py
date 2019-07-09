@@ -13,7 +13,7 @@ OUTPUT_FOLDER = "extracted_letter_images"
 # Get a list of all the captcha images we need to process
 captcha_image_files = glob.glob(os.path.join(CAPTCHA_IMAGE_FOLDER, "*"))
 counts = {}
-cc='test'
+
 # loop over the image paths
 for (i, captcha_image_file) in enumerate(captcha_image_files):
     print("[INFO] processing image {}/{}".format(i + 1, len(captcha_image_files)))
@@ -26,8 +26,6 @@ for (i, captcha_image_file) in enumerate(captcha_image_files):
     # Load the image and convert it to grayscale
     image = cv2.imread(captcha_image_file)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    cv2.imshow("", image)
-    cv2.waitKey(0)
 
     # Add some extra padding around the image
     gray = cv2.copyMakeBorder(gray, 8, 8, 8, 8, cv2.BORDER_REPLICATE)
